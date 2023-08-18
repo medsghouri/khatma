@@ -100,7 +100,7 @@ input {
     border: 0;
     border-radius: 10px;
     text-align: center;
-    width: 25%; // Nicht ändern!!! In Produktion wird es schmaller angezeigt!!!
+    width: 25%; /* Nicht ändern!!! In Produktion wird es schmaller angezeigt!!! */
     /* color: #FBFBFB; */
     
 
