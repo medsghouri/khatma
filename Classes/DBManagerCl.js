@@ -1,50 +1,59 @@
 
-import { getDatabase, ref, update, onValue, get, child } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import {
+  getDatabase,
+  ref,
+  update,
+  onValue,
+  get,
+  child,
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 // ---------------------------------------------------------------------------------------------
 // User
 // ---------------------------------------------------------------------------------------------
 
-export class UserCl {
-    static setDB(database, khatmaPathDB) {
-        this.database = database
-        this.khatmaPathDB = khatmaPathDB
-        console.log(khatmaPathDB)
-    }
+export class DBManagerCl {
+  static setDB(database, headPathDB) {
+    this.database = database;
+    this.headPathDB = headPathDB;
+    console.log(headPathDB);
+  }
 
-    constructor(hizbId, userId, name, status) {
-        this.userId = userId
-        this.name = name
-        this.hizbId = hizbId
-        this.status = status
-    }
+  static selectFromDB(app, headPathDB) {
+    const database = getDatabase(app);
+    const headPathDB = this.headPathDB //"/khatma2/432/khatma/"; // later: "/khatamat/432/khatma/"
+    const headRef = ref(database, headPathDB);
 
+    const dbRef = ref(getDatabase());
 
-    // --- Udate Khatma Status in DB ---------------------------------------------------------
-    updateStatusInDB(user) {
-        // Popup to confirm
+    onValue(headRef, function (snapshot) {
+      main(snapshot);
+    });
+  }
+  static main(snapshot) {}
 
-        let text = " تأكيد قراءة الحزب ";
-        if (confirm(text) == true) {
-            text = "You pressed OK!";
-            // Update Status in DB
-          
-            var khatmaRowPath = UserCl.khatmaPathDB + user.hizbId
-            console.log(user.hizbId)
-            
-            var khatmaRowRef = ref(UserCl.database, khatmaRowPath);
+  constructor(item) {
+    this.item;
+  }
 
-            if (user.status == '') {
-                update(khatmaRowRef, { 'status': 'X' })
-            }
-            else {
-                update(khatmaRowRef, { 'status': '' })
-            }
-        } else {
-            text = "You canceled!";
-        }
-    }
-
-
+  // --- Udate Khatma Status in DB ---------------------------------------------------------
+  updateInDB(item) {
+    // Popup to confirm
+    // let text = " تأكيد قراءة الحزب ";
+    // if (confirm(text) == true) {
+    //     text = "You pressed OK!";
+    //     // Update Status in DB
+    //     var khatmaRowPath = UserCl.khatmaPathDB + user.hizbId
+    //     console.log(user.hizbId)
+    //     var khatmaRowRef = ref(UserCl.database, khatmaRowPath);
+    //     if (user.status == '') {
+    //         update(khatmaRowRef, { 'status': 'X' })
+    //     }
+    //     else {
+    //         update(khatmaRowRef, { 'status': '' })
+    //     }
+    // } else {
+    //     text = "You canceled!";
+    // }
+  }
 }
-

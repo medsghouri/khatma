@@ -63,7 +63,8 @@ const dbRef = ref(getDatabase());
 // ---------------------------------------------------------------------------------
 homeTab.addEventListener("click", function () {
   alert("homeee");
-  main(ssUsers, ssKhatma, database, khatmaPathDB);
+  
+
 });
 
 // ---------------------------------------------------------------------------------
@@ -201,6 +202,5 @@ bookTab.addEventListener("click", function () {
 //     // Row.search(newUser)
 //   }
 // }
-
 
 //-------------------------------------------------------------------------------------

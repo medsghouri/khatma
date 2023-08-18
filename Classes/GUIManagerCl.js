@@ -24,25 +24,11 @@ export class GUIManagerCl {
     
 
     addToTable(item) {
-        // --- Add User infos and Row to Table 
-        // this.divRightEl.innerHTML = ` الحزب ` + user.hizbId + ` - ` + user.name;
-        // this.divRightEl.style.cssFloat = "right"
-
-        // this.tdRowEl.appendChild(this.iLeftEl)
-        // this.tdRowEl.appendChild(this.divRightEl)
-
+        // --- Add  to Table 
         this.tRowEl.appendChild(this.tdRowEl);
         this.tRowEl.appendChild(this.tBtnEl) /////////////
 
         GUIManagerCl.tBodyEl.appendChild(this.tRowEl);
-
-        // this.tBtnEl.addEventListener("click", function () { /////
-        //     location.href = "./hizb.html?no=" + this.hizbId   ////////
-        // })/////////
-        //--------------------- Click on Name in Table --------------
-        // this.tdRowEl.addEventListener("click", function () {
-        //     user.updateStatusInDB(user)
-        // })
 
     }
 
