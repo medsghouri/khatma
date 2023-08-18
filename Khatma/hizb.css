@@ -1,0 +1,63 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #EEF0F4 ;
+    color: #FBFBFB;
+}
+
+h1 {
+    font-size: 30px;
+    font-family: "Warsh";
+    margin: 0;
+    text-align: center;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    display: block;
+    color: #2C362B;
+    line-height: 150% ;
+    
+}
+
+p {
+    font-size: 30px;
+    font-family: "Warsh";
+    margin: 0;
+    text-align: right;
+    margin-right: 30px;
+    margin-left: 30px;
+    display: block;
+    color: #2C362B;
+    line-height: 150% ;
+    text-align: justify;
+    text-align-last: center;
+    
+    
+}
+
+@font-face{
+    /* font-family: 'othmani';
+    src: url(uthmanic_hafs_v20.ttf); */
+    
+     font-family: 'Warsh';
+    src: url('/KFGQPCWarshUthmanicScript-Regul.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+
+}
+
+.loading-animation {
+    width: 40px;
+    height: 40px;
+    margin: 100px auto;
+    background-color: #007C89;
+    border-radius: 100%;
+    animation: pulse 1s infinite ease-in-out
+}
+
+
+
+  

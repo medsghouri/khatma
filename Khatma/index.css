@@ -1,0 +1,206 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #EEF0F4 ;
+    color: #FBFBFB;
+    height:40%;
+}
+.container {
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 10px auto;
+}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #40bd83;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+input [type="radio"] {
+  background-color: red;
+  display: block;
+}
+
+
+h1 {
+    font-size: 40px;
+    font-family: Reem Kufi;
+    margin: 0;
+    text-align: center;
+    display: block;
+    color: #2C362B;
+    
+}
+h2 {
+    font-size: 15px;
+    font-family: "othmani";
+    
+    margin: 0;
+    text-align: center;
+    display: block;
+    color: #2C362B;
+}
+
+
+
+.field {
+    display: flex;
+    column-gap: 10px;
+}
+
+label {
+    font-size: 35px;
+    font-family:  "Reem Kufi";
+    margin: 0;
+    text-align: center;
+    display: block;
+    color: #2C362B;
+}
+
+input {
+    /* background-color: #EEF0F4; */
+     
+    font-size: 20px;   
+    padding: 15px;
+    border: 0;
+    border-radius: 10px;
+    text-align: center;
+    width: 25%; // Nicht ändern!!! In Produktion wird es schmaller angezeigt!!!
+    /* color: #FBFBFB; */
+    
+
+}
+
+input[type="text"]::placeholder {
+    color: #371F1B;
+}
+
+button {
+    color: #FDFDFD;
+    background-color: #b5556b;
+    border: 0;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 18px;
+    text-align: center;
+    font-family: Noto Naskh Arabic;
+    
+    width: 100%;
+}
+
+button:hover {
+    background-color: #432000;
+    cursor: pointer;
+}
+
+ul {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    text-align: center;
+}
+
+li {
+    list-style: none;
+    background-color: #2C362B;
+    font-size: 18px;
+    padding: 15px;
+    height: 120px;
+    width: 40%;
+    text-align: left;
+}
+
+th {
+    color: black;
+}
+
+td {
+    font-size: 20px;
+    font-weight: bold;
+    
+    font-family: "othmani";
+    margin: 0;
+    text-align: right;
+    
+    background-color: #fecdd2;
+    color: #2C362B;
+    
+    padding: 15px;
+    border-radius: 8px;
+
+    border: solid;
+    border-color: #73000c;
+
+
+}
+
+td:hover {
+    background-color: #d1a9ad ;
+    cursor: pointer; 
+}
+
+img{
+    width: 150px;
+    margin: 0 auto; 
+}
+
+select {
+    font-family: 'FontAwesome', 'sans-serif';
+    /* color: #FDFDFD;
+    background-color: #b5556b; */
+    border: 0;
+
+    border-radius: 10px;
+    width:15%;
+    height: 50px;
+    font-size: 30px;
+    text-align: center;
+}
+
+div {
+    display: flex;
+    justify-content: space-between;
+}
+
+@font-face{
+    font-family: 'othmani';
+    src: url(uthmanic_hafs_v20.ttf);
+
+}

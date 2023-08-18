@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khatma Object Display</title>
+</head>
+<body>
+    <h1>Khatma Object List</h1>
+    <form id="khatmaForm">
+        <ul id="khatmaList">
+            <!-- This is where the list items will be populated -->
+        </ul>
+    </form>
+
+    <script>
+        // Sample khatma object
+        const khatmaObject = {
+            items: [
+                { id: 1, name: 'Item 1' },
+                { id: 2, name: 'Item 2' },
+                { id: 3, name: 'Item 3' },
+                // ... more items
+            ]
+        };
+
+        const khatmaList = document.getElementById('khatmaList');
+        const khatmaForm = document.getElementById('khatmaForm');
+
+        // Loop through the khatma items and create radio buttons
+        khatmaObject.items.forEach(item => {
+            const listItem = document.createElement('li');
+            const radioInput = document.createElement('input');
+            radioInput.type = 'radio';
+            radioInput.name = 'selectedItem';
+            radioInput.value = item.id;
+            listItem.appendChild(radioInput);
+
+            const label = document.createElement('label');
+            label.textContent = item.name;
+            listItem.appendChild(label);
+
+            khatmaList.appendChild(listItem);
+        });
+
+        // Listen for form submission to capture selected item
+        khatmaForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const selectedItemId = document.querySelector('input[name="selectedItem"]:checked').value;
+            // You can use the selectedItemId to perform further actions
+            
+            console.log('Selected Item ID:', selectedItemId);
+        });
+    </script>
+</body>
+</html>
