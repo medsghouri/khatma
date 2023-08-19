@@ -10,8 +10,9 @@ import {
 import { RowCl } from "./Classes/RowCl.js";
 import { UserCl } from "./Classes/UserCl.js";
 
+import { DBManagerCl } from "./Classes/DBManagerCl.js";
 import { GUIManagerCl } from "./Classes/GUIManagerCl.js";
-import { GuiUserCl } from "./Classes/User1Cl.js";
+import { DBUserCl, GuiUserCl } from "./Classes/User1Cl.js";
 import { GuiKhatmaCl } from "./Classes/KhatmaCl.js";
 
 const appSettings = {
@@ -63,8 +64,6 @@ const dbRef = ref(getDatabase());
 // ---------------------------------------------------------------------------------
 homeTab.addEventListener("click", function () {
   alert("homeee");
-  
-
 });
 
 // ---------------------------------------------------------------------------------
@@ -72,7 +71,7 @@ homeTab.addEventListener("click", function () {
 // ---------------------------------------------------------------------------------
 userTab.addEventListener("click", function () {
   alert("user");
-  user(ssUsers, database);
+  DBUserCl.main(app, "/user/");
 });
 
 // ---------------------------------------------------------------------------------

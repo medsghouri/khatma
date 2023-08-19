@@ -1,4 +1,3 @@
-
 import {
   getDatabase,
   ref,
@@ -13,24 +12,11 @@ import {
 // ---------------------------------------------------------------------------------------------
 
 export class DBManagerCl {
-  static setDB(database, headPathDB) {
-    this.database = database;
-    this.headPathDB = headPathDB;
-    console.log(headPathDB);
+  static initializeDB(app, headPathDB) {
+    this.database = getDatabase(app);
+    this.headPathDB = headPathDB; //"/khatma2/432/khatma/"; // later: "/khatamat/432/khatma/"
+    this.headRef = ref(this.database, this.headPathDB);
   }
-
-  static selectFromDB(app, headPathDB) {
-    const database = getDatabase(app);
-    const headPathDB = this.headPathDB //"/khatma2/432/khatma/"; // later: "/khatamat/432/khatma/"
-    const headRef = ref(database, headPathDB);
-
-    const dbRef = ref(getDatabase());
-
-    onValue(headRef, function (snapshot) {
-      main(snapshot);
-    });
-  }
-  static main(snapshot) {}
 
   constructor(item) {
     this.item;
@@ -39,21 +25,20 @@ export class DBManagerCl {
   // --- Udate Khatma Status in DB ---------------------------------------------------------
   updateInDB(item) {
     // Popup to confirm
-    // let text = " تأكيد قراءة الحزب ";
-    // if (confirm(text) == true) {
-    //     text = "You pressed OK!";
-    //     // Update Status in DB
-    //     var khatmaRowPath = UserCl.khatmaPathDB + user.hizbId
-    //     console.log(user.hizbId)
-    //     var khatmaRowRef = ref(UserCl.database, khatmaRowPath);
-    //     if (user.status == '') {
-    //         update(khatmaRowRef, { 'status': 'X' })
-    //     }
-    //     else {
-    //         update(khatmaRowRef, { 'status': '' })
-    //     }
-    // } else {
-    //     text = "You canceled!";
-    // }
+    let text = " تأكيد قراءة الحزب ";
+    if (confirm(text) == true) {
+      text = "You pressed OK!";
+      // Update Status in DB
+      var khatmaRowPath = UserCl.khatmaPathDB + user.hizbId;
+      
+      var khatmaRowRef = ref(UserCl.database, khatmaRowPath);
+      if (user.status == "") {
+        update(khatmaRowRef, { status: "X" });
+      } else {
+        update(khatmaRowRef, { status: "" });
+      }
+    } else {
+      text = "You canceled!";
+    }
   }
 }
