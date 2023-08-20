@@ -1,107 +1,89 @@
 export class GUIManagerCl {
-    static tBodyEl = document.getElementById('tBody')
-    // static searchEl = document.getElementById("search");
-    // static statusEl = document.getElementById("status")
-    
-    static clearUserTbodyEl(){
-        this.tBodyEl.innerHTML = ""
-    }
-    
-    static setDB(database, headPathDB) {
-        this.database = database
-        this.headPathDB = headPathDB
-    }
-    
-    constructor(item) {
-        this.item = item; // Array to hold the user objects
+  static tBodyEl = document.getElementById("tBody");
+  // static searchEl = document.getElementById("search");
+  // static statusEl = document.getElementById("status")
 
-        this.tRowEl = document.createElement('tr')
-        this.tBtnEl = document.createElement('button') /////
-        this.tdRowEl = document.createElement('td')
-        // this.iLeftEl = document.createElement('i')
-        // this.divRightEl = document.createElement('div')
-    }
-    
+  static clearTbodyEl() {
+    this.tBodyEl.innerHTML = "";
+  }
 
-    addToTable(item) {
-        // --- Add  to Table 
-        this.tRowEl.appendChild(this.tdRowEl);
-        this.tRowEl.appendChild(this.tBtnEl) /////////////
+//   static setDB(database, headPathDB) {
+//     this.database = database;
+//     this.headPathDB = headPathDB;
+//   }
 
-        GUIManagerCl.tBodyEl.appendChild(this.tRowEl);
+  constructor(item) {
+    this.item = item; // Array to hold the user objects
 
-    }
+    this.tRowEl = document.createElement("tr");
+    this.tBtnEl = document.createElement("button"); /////
+    this.tdRowEl = document.createElement("td");
+    // this.iLeftEl = document.createElement('i')
+    // this.divRightEl = document.createElement('div')
+  }
 
-    changeColor(user) {
+  addToTable(item) {
+    // --- Add  to Table
+    this.tRowEl.appendChild(this.tdRowEl);
+    this.tRowEl.appendChild(this.tBtnEl); /////////////
+
+    GUIManagerCl.tBodyEl.appendChild(this.tRowEl);
+  }
+
+//   onClickBtn(oDBItem) {
+//         //--------------------- Click on Btn in Table --------------
+//         this.tBtnEl.addEventListener("click", function () {
+          
+//         });
+//   }
+
+  changeColor(user) {
     // this.iLeftEl.style.cssFloat = "left"
-
     // if (user.status == 'X') { // Green
     //     // -- Change color of row --
     //     this.tdRowEl.style.backgroundColor = '#c7e5c9' //Lightgreen
     //     this.tdRowEl.style.borderColor = '#224823' //Darkgreen
-
     //     // -- change icon of row
     //     this.iLeftEl.className = "fa fa-check"
     //     this.iLeftEl.style.fontSize = "30px"
     //     this.iLeftEl.style.color = '#224823'
-
     // }
     // else { // Red
     //     // -- Change color of row --
     //     this.tdRowEl.style.backgroundColor = 'lightred'
     //     this.tdRowEl.style.borderColor = '#73000c' //Darkgreen
-
     //     // -- change icon of row
     //     this.iLeftEl.className = "fa fa-times"
     //     this.iLeftEl.style.fontSize = "30px"
     //     this.iLeftEl.style.color = '#73000c'
     // }
+  }
 
-}
+  // ---------------------------------------------------------------------------------------------
+  //      PAI
+  // ---------------------------------------------------------------------------------------------
 
+  // --- on Searching ----------------------------------------------------------------------------
+  search(user) {
+    var lo_Row = this;
 
+    RowCl.searchEl.addEventListener("keyup", function () {
+      // console.log(user)
+      lo_Row.filter();
+    });
+  }
 
+  // --- Filter users based on the search --------------------------------------------------------
+  filter() {
+    var filter, txtValue;
+    filter = RowCl.searchEl.value.toUpperCase();
 
+    txtValue = this.tdRowEl.textContent || this.tdRowEl.innerText;
 
-
-
-
-
-
-
-
-
-    // ---------------------------------------------------------------------------------------------
-    //      PAI
-    // ---------------------------------------------------------------------------------------------
-
-    // --- on Searching ----------------------------------------------------------------------------
-    search(user) {
-        var lo_Row = this
-
-        RowCl.searchEl.addEventListener("keyup", function () {
-            // console.log(user)    
-            lo_Row.filter()
-        })
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      this.tRowEl.style.display = "";
+    } else {
+      this.tRowEl.style.display = "none";
     }
-
-    // --- Filter users based on the search --------------------------------------------------------
-    filter() {
-        var filter, txtValue;
-        filter = RowCl.searchEl.value.toUpperCase();
-
-        txtValue = this.tdRowEl.textContent || this.tdRowEl.innerText;
-
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            this.tRowEl.style.display = "";
-        } else {
-            this.tRowEl.style.display = "none";
-        }
-
-
-    }
-
-
+  }
 }
-
-

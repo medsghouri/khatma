@@ -10,49 +10,49 @@ import {
 import { GUIManagerCl } from "./GUIManagerCl.js";
 import { DBManagerCl } from "./DBManagerCl.js";
 //-------------------------------------------------------------------------------
-// DB
+// DB Class
 //-------------------------------------------------------------------------------
 export class DBUserCl extends DBManagerCl {
-  //------  Main  ---------------------------------------------------------------
-  static main(app, headPathDB) {
-    super.initializeDB(app, headPathDB);
-    let headRef = this.headRef;
-    onValue(headRef, function (snapshot) {
-      let aItems = Object.values(snapshot.val()); // Change JSON format to Array format
-
-      for (let i = 0; i < aItems.length; i++) {
-        // Initiate Objects
-        var oGuiItem = new GuiUserCl(aItems[i]);
-
-        // Call Methods
-        oGuiItem.addToTable(oGuiItem);
-        // Row.changeColor(newUser)
-        // Row.search(newUser)
-      }
-    });
-  }
   // --- Constructor -----------------------------------------------------------
   constructor(item) {
-    this.item;
+    super(item);
   }
+
   // --- Udate Khatma Status in DB ----------------------------------------------
-  updateInDB(item) {
-    
+  updateInDB(item, itemInnerHTML) {
+    // Popup to confirm
+    let text = " تأكيد ";
+    if (confirm(text) == true) {
+      text = "You pressed OK!";
+      // Update Status in DB
+      var itemPath = DBUserCl.headPathDB + item.user_id;
+      var itemRef = ref(DBUserCl.database, itemPath);
+
+      update(itemRef, { name: itemInnerHTML });
+    } else {
+      text = "You canceled!";
+    }
   }
 }
 //-------------------------------------------------------------------------------
-// GUI
+// GUI Class
 //-------------------------------------------------------------------------------
 export class GuiUserCl extends GUIManagerCl {
-  constructor(item) {
+  constructor(item, oDBUser) {
     super(item);
+    this.oDBUser = oDBUser;
+    this.tBtnEl.addEventListener("click", this.onClickBtn.bind(this));
   }
 
   addToTable(item) {
     super.addToTable(item);
     this.tdRowEl.innerHTML = this.item.name;
+    this.tdRowEl.contentEditable = "true";
   }
 
+  onClickBtn() {
+    this.oDBUser.updateInDB(this.item, this.tdRowEl.innerHTML);
+  }
   changeColor(user) {}
 
   // // //     // ---------------------------------------------------------------------------------------------
