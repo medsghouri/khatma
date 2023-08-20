@@ -13,7 +13,7 @@ import { UserCl } from "./Classes/UserCl.js";
 import { DBManagerCl } from "./Classes/DBManagerCl.js";
 import { GUIManagerCl } from "./Classes/GUIManagerCl.js";
 import { DBUserCl, GuiUserCl } from "./Classes/User1Cl.js";
-import { GuiKhatmaCl } from "./Classes/KhatmaCl.js";
+import { DBKhatmaCl, GuiKhatmaCl } from "./Classes/KhatmaCl.js";
 
 const appSettings = {
   databaseURL:
@@ -70,8 +70,28 @@ homeTab.addEventListener("click", function () {
 // User
 // ---------------------------------------------------------------------------------
 userTab.addEventListener("click", function () {
-  alert("user");
-  DBUserCl.main(app, "/user/");
+  // alert("user");
+
+  DBUserCl.initializeDB(app, "/user/");
+  let headRef = DBUserCl.headRef;
+  onValue(headRef, function (snapshot) {
+    let aItems = Object.values(snapshot.val()); // Change JSON format to Array format
+
+    GuiUserCl.clearTbodyEl();
+    for (let i = 0; i < aItems.length; i++) {
+      // Initiate Objects
+      var oDBUser = new DBUserCl(aItems[i]);
+      var oGuiUser = new GuiUserCl(aItems[i], oDBUser);
+
+      // Call Methods
+
+      oGuiUser.addToTable(oGuiUser);
+      // oGuiUser.onClickBtn(oDBUser);
+
+      // Row.changeColor(newUser)
+      // Row.search(newUser)
+    }
+  });
 });
 
 // ---------------------------------------------------------------------------------
@@ -79,7 +99,27 @@ userTab.addEventListener("click", function () {
 // ---------------------------------------------------------------------------------
 bookTab.addEventListener("click", function () {
   alert("book");
-  book(ssKhatma, database);
+  DBKhatmaCl.initializeDB(app, "/khatma2/");
+  let headRef = DBUserCl.headRef;
+  onValue(headRef, function (snapshot) {
+    console.log(snapshot);
+    let aItems = Object.values(snapshot.val()); // Change JSON format to Array format
+
+    GuiKhatmaCl.clearTbodyEl();
+    for (let i = 0; i < aItems.length; i++) {
+      // Initiate Objects
+      var oDBKhatma = new DBKhatmaCl(aItems[i]);
+      var oGuiKhatma = new GuiKhatmaCl(aItems[i], oDBKhatma);
+
+      // Call Methods
+
+      // oGuiUser.addToTable(oGuiUser);
+      // oGuiUser.onClickBtn(oDBUser);
+
+      // Row.changeColor(newUser)
+      // Row.search(newUser)
+    }
+  });
 });
 
 //// End

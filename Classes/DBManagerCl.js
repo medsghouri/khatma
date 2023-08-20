@@ -19,26 +19,11 @@ export class DBManagerCl {
   }
 
   constructor(item) {
-    this.item;
+    this.item = item;
   }
 
   // --- Udate Khatma Status in DB ---------------------------------------------------------
   updateInDB(item) {
-    // Popup to confirm
-    let text = " تأكيد قراءة الحزب ";
-    if (confirm(text) == true) {
-      text = "You pressed OK!";
-      // Update Status in DB
-      var khatmaRowPath = UserCl.khatmaPathDB + user.hizbId;
-      
-      var khatmaRowRef = ref(UserCl.database, khatmaRowPath);
-      if (user.status == "") {
-        update(khatmaRowRef, { status: "X" });
-      } else {
-        update(khatmaRowRef, { status: "" });
-      }
-    } else {
-      text = "You canceled!";
-    }
+
   }
 }
