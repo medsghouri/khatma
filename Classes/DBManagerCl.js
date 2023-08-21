@@ -17,6 +17,9 @@ export class DBManagerCl {
     this.headPathDB = headPathDB; //"/khatma2/432/khatma/"; // later: "/khatamat/432/khatma/"
     this.headRef = ref(this.database, this.headPathDB);
   }
+  static setArray(aItems){
+    this.aItems = aItems
+  }
 
   constructor(item) {
     this.item = item;

@@ -7,10 +7,10 @@ export class GUIManagerCl {
     this.tBodyEl.innerHTML = "";
   }
 
-//   static setDB(database, headPathDB) {
-//     this.database = database;
-//     this.headPathDB = headPathDB;
-//   }
+  //   static setDB(database, headPathDB) {
+  //     this.database = database;
+  //     this.headPathDB = headPathDB;
+  //   }
 
   constructor(item) {
     this.item = item; // Array to hold the user objects
@@ -18,11 +18,15 @@ export class GUIManagerCl {
     this.tRowEl = document.createElement("tr");
     this.tBtnEl = document.createElement("button"); /////
     this.tdRowEl = document.createElement("td");
+
+    // Click evetns
+    this.tBtnEl.addEventListener("click", this.onClickBtn.bind(this));
+    this.tRowEl.addEventListener("click", this.onClickRow.bind(this));
     // this.iLeftEl = document.createElement('i')
     // this.divRightEl = document.createElement('div')
   }
 
-  addToTable(item) {
+  addToTable() {
     // --- Add  to Table
     this.tRowEl.appendChild(this.tdRowEl);
     this.tRowEl.appendChild(this.tBtnEl); /////////////
@@ -30,12 +34,8 @@ export class GUIManagerCl {
     GUIManagerCl.tBodyEl.appendChild(this.tRowEl);
   }
 
-//   onClickBtn(oDBItem) {
-//         //--------------------- Click on Btn in Table --------------
-//         this.tBtnEl.addEventListener("click", function () {
-          
-//         });
-//   }
+  onClickBtn() {}
+  onClickRow() {}
 
   changeColor(user) {
     // this.iLeftEl.style.cssFloat = "left"

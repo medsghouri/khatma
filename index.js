@@ -98,22 +98,21 @@ userTab.addEventListener("click", function () {
 // Book
 // ---------------------------------------------------------------------------------
 bookTab.addEventListener("click", function () {
-  alert("book");
   DBKhatmaCl.initializeDB(app, "/khatma2/");
-  let headRef = DBUserCl.headRef;
+  let headRef = DBKhatmaCl.headRef;
   onValue(headRef, function (snapshot) {
-    console.log(snapshot);
-    let aItems = Object.values(snapshot.val()); // Change JSON format to Array format
-
+    let aKhatamat = Object.values(snapshot.val()); // Change JSON format to Array format
+    DBKhatmaCl.setArray(aKhatamat);
+    console.log(aKhatamat[0].head);
     GuiKhatmaCl.clearTbodyEl();
-    for (let i = 0; i < aItems.length; i++) {
+    for (let i = 0; i < aKhatamat.length; i++) {
       // Initiate Objects
-      var oDBKhatma = new DBKhatmaCl(aItems[i]);
-      var oGuiKhatma = new GuiKhatmaCl(aItems[i], oDBKhatma);
+      var oDBKhatma = new DBKhatmaCl(aKhatamat[i].head);
+      var oGuiKhatma = new GuiKhatmaCl(aKhatamat[i].head, oDBKhatma);
 
       // Call Methods
 
-      // oGuiUser.addToTable(oGuiUser);
+      oGuiKhatma.addToTable();
       // oGuiUser.onClickBtn(oDBUser);
 
       // Row.changeColor(newUser)
