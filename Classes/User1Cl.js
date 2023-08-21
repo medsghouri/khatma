@@ -41,7 +41,6 @@ export class GuiUserCl extends GUIManagerCl {
   constructor(item, oDBUser) {
     super(item);
     this.oDBUser = oDBUser;
-    this.tBtnEl.addEventListener("click", this.onClickBtn.bind(this));
   }
 
   addToTable(item) {
@@ -53,6 +52,7 @@ export class GuiUserCl extends GUIManagerCl {
   onClickBtn() {
     this.oDBUser.updateInDB(this.item, this.tdRowEl.innerHTML);
   }
+
   changeColor(user) {}
 
   // // //     // ---------------------------------------------------------------------------------------------
