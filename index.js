@@ -98,17 +98,17 @@ userTab.addEventListener("click", function () {
 // Book
 // ---------------------------------------------------------------------------------
 bookTab.addEventListener("click", function () {
-  DBKhatmaCl.initializeDB(app, "/khatma2/");
+  DBKhatmaCl.initializeDB(app, "/khatmaHead/");
   let headRef = DBKhatmaCl.headRef;
   onValue(headRef, function (snapshot) {
-    let aKhatamat = Object.values(snapshot.val()); // Change JSON format to Array format
-    DBKhatmaCl.setArray(aKhatamat);
-    console.log(aKhatamat[0].head);
+    let aKhatmaHead = Object.values(snapshot.val()); // Change JSON format to Array format
+    DBKhatmaCl.setArray(aKhatmaHead);
+
     GuiKhatmaCl.clearTbodyEl();
-    for (let i = 0; i < aKhatamat.length; i++) {
+    for (let i = 0; i < aKhatmaHead.length; i++) {
       // Initiate Objects
-      var oDBKhatma = new DBKhatmaCl(aKhatamat[i].head);
-      var oGuiKhatma = new GuiKhatmaCl(aKhatamat[i].head, oDBKhatma);
+      var oDBKhatma = new DBKhatmaCl(aKhatmaHead[i]);
+      var oGuiKhatma = new GuiKhatmaCl(aKhatmaHead[i], oDBKhatma);
 
       // Call Methods
 

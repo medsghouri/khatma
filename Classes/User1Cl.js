@@ -15,7 +15,8 @@ import { DBManagerCl } from "./DBManagerCl.js";
 export class DBUserCl extends DBManagerCl {
   // --- Constructor -----------------------------------------------------------
   constructor(item) {
-    super(item);
+    let sPath = item.user_id;
+    super(item, sPath);
   }
 
   // --- Udate Khatma Status in DB ----------------------------------------------
@@ -25,10 +26,7 @@ export class DBUserCl extends DBManagerCl {
     if (confirm(text) == true) {
       text = "You pressed OK!";
       // Update Status in DB
-      var itemPath = DBUserCl.headPathDB + item.user_id;
-      var itemRef = ref(DBUserCl.database, itemPath);
-
-      update(itemRef, { name: itemInnerHTML });
+      update(this.itemRef, { name: itemInnerHTML });
     } else {
       text = "You canceled!";
     }
