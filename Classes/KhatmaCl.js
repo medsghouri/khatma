@@ -46,9 +46,8 @@ export class DBKhatmaCl extends DBManagerCl {
 export class GuiKhatmaCl extends GUIManagerCl {
   constructor(item, oDBKhatma) {
     super(item);
+
     this.oDBKhatma = oDBKhatma;
-    // this.tRowEl.addEventListener("click", this.onClickRow.bind(this));
-    // this.tBtnEl = document.createElement('button') /////
 
     // this.iLeftEl = document.createElement('i')
     // this.divRightEl = document.createElement('div')
@@ -62,10 +61,24 @@ export class GuiKhatmaCl extends GUIManagerCl {
     // hide
     this.tBtnEl.hidden = "true";
   }
-  // onClickBtn() {
-  //   console.log("click");
-  // }
+
   onClickRow() {
     this.oDBKhatma.updateInDB(this.item);
+  }
+
+  // --- Nicht vererbte Methoden
+  static addKhatmaBtn() {
+    GuiKhatmaCl.addKhatmaBtnEl = document.createElement("button");
+    GuiKhatmaCl.addKhatmaBtnEl.innerText = "Create New";
+    this.tBodyEl.appendChild(GuiKhatmaCl.addKhatmaBtnEl);
+    // Click evetns
+    GuiKhatmaCl.addKhatmaBtnEl.addEventListener(
+      "click",
+      GuiKhatmaCl.onAddKhatma.bind(this)
+    );
+  }
+
+  static onAddKhatma() {
+    let aLastItem = DBKhatmaCl.aItems[DBKhatmaCl.aItems.length - 1];
   }
 }
