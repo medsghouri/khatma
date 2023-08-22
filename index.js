@@ -51,11 +51,6 @@ var userTab = document.getElementById("userTab");
 var bookTab = document.getElementById("bookTab");
 
 const app = initializeApp(appSettings);
-const database = getDatabase(app);
-const khatmaPathDB = "/khatma2/432/khatma/"; // later: "/khatamat/432/khatma/"
-const khatmaRef = ref(database, khatmaPathDB);
-
-const dbRef = ref(getDatabase());
 
 //// Beginn
 
@@ -118,6 +113,8 @@ bookTab.addEventListener("click", function () {
       // Row.changeColor(newUser)
       // Row.search(newUser)
     }
+
+    GuiKhatmaCl.addKhatmaBtn();
   });
 });
 
