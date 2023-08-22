@@ -14,7 +14,8 @@ import { DBManagerCl } from "./DBManagerCl.js";
 //-------------------------------------------------------------------------------
 export class DBKhatmaCl extends DBManagerCl {
   constructor(item) {
-    super(item);
+    let sPath = item.no;
+    super(item, sPath);
   }
 
   // --- Udate Khatma Status in DB ----------------------------------------------
@@ -25,27 +26,19 @@ export class DBKhatmaCl extends DBManagerCl {
       text = "You pressed OK!";
 
       // clear all flieds "valid"
-      // console.log(DBKhatmaCl.aItems);
-      for (let i = 0; i < DBKhatmaCl.aItems.length; i++) {
-        var itemPath =
-          DBKhatmaCl.headPathDB + DBKhatmaCl.aItems[i].head.no + "/head/";
-        var itemRef = ref(DBKhatmaCl.database, itemPath);
+      DBKhatmaCl.aObjects.forEach((obj) => {
+        update(obj.itemRef, { valid: "" });
+        console.log(obj.itemPath);
+      });
 
-        update(itemRef, { valid: "" });
-      }
       // Update in DB
-      var itemPath = DBKhatmaCl.headPathDB + this.item.no + "/head/";
-      console.log(this.item);
-
-      var itemRef = ref(DBKhatmaCl.database, itemPath);
-
-      update(itemRef, { valid: "X" });
+      update(this.itemRef, { valid: "X" });
     } else {
       text = "You canceled!";
     }
   }
- // --- Create new Khatma ----------------------------------------------
-  createNewInDB(){}
+  // --- Create new Khatma ----------------------------------------------
+  createNewInDB() {}
 }
 //-------------------------------------------------------------------------------
 // GUI Class
