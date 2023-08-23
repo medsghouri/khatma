@@ -28,7 +28,7 @@ export class DBKhatmaCl extends DBManagerCl {
       // clear all flieds "valid"
       DBKhatmaCl.aObjects.forEach((obj) => {
         update(obj.itemRef, { valid: "" });
-        console.log(obj.itemPath);
+
       });
 
       // Update in DB
