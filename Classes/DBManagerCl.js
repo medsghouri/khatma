@@ -26,7 +26,6 @@ export class DBManagerCl {
     this.item = item;
     // this.constructor = Using it helps avoid using hard-coded 'DBManagerCl' and enables inheritance.
     this.itemPath = this.constructor.headPathDB + sPath;
-    console.log(this.itemPath);
     this.itemRef = ref(this.constructor.database, this.itemPath);
     this.constructor.aObjects.push(this);
   }

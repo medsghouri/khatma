@@ -60,48 +60,46 @@ const app = initializeApp(appSettings);
 // ---------------------------------------------------------------------------------
 homeTab.addEventListener("click", function () {
   DBUserCl.initializeDB(app, "/user/");
-  let userHeadRef = DBUserCl.headRef;
-
-  DBKhatmaCl.initializeDB(app, "/khatmaHead/");
-  let khatmaHeadRef = DBKhatmaCl.headRef;
-
-  DBHizbCl.initializeDB(app, "/hizb/");
-  let hizbHeadRef = DBHizbCl.headRef;
-
-  onValue(userHeadRef, function (snapshot) {
+  //-----------------------------------------
+  onValue(DBUserCl.headRef, function (snapshot) {
     let userSnapshot = snapshot;
-    onValue(khatmaHeadRef, function (snapshot) {
+    //-----------------------------------------
+    DBKhatmaCl.initializeDB(app, "/khatmaHead/");
+    onValue(DBKhatmaCl.headRef, function (snapshot) {
       let khatmaSnapshot = snapshot;
-      onValue(hizbHeadRef, function (snapshot) {
+      let aKhatma = Object.values(khatmaSnapshot.val()); // Change JSON format to Array format
+      let sCurrentKhatmaNo;
+      aKhatma.forEach((obj) => {
+        if (obj.valid === "X") {
+          sCurrentKhatmaNo = obj.no;
+        }
+      });
+      //-----------------------------------------
+
+      let sPath = "/hizb/" + sCurrentKhatmaNo;
+      DBHizbCl.initializeDB(app, sPath);
+      onValue(DBHizbCl.headRef, function (snapshot) {
         let hizbSnapshot = snapshot;
         let aUser = Object.values(userSnapshot.val());
-        let aKhatma = Object.values(khatmaSnapshot.val()); // Change JSON format to Array format
         let aHizb = Object.values(hizbSnapshot.val());
 
-        console.log(aUser);
-        console.log(aKhatma);
-        console.log(aHizb);
-
-        aKhatma.forEach((obj) => {
-          if (obj.valid === "X") {
-            var sCurrentKhatmaNo = obj.no;
-          }
-        });
-
         GuiHizbCl.clearTbodyEl();
-        // for (let i = 0; i < aItems.length; i++) {
-        //   // Initiate Objects
-        //   var oDBHizb = new DBHizbCl(aItems[i]);
-        //   var oGuiHizb = new GuiHizbCl(aItems[i], oDBHizb);
+        for (let i = 0; i < aUser.length; i++) {
+          // Initiate Objects
 
-        //   // Call Methods
+          var oDBHizb = new DBHizbCl(aHizb[i]);
 
-        //   oGuiHizb.addToTable(oGuiHizb);
-        //   // oGuiUser.onClickBtn(oDBUser);
+          var oDBUser = new DBUserCl(aUser[aHizb[i].user_id]);
+          var oGuiHizb = new GuiHizbCl(aHizb[i], oDBHizb, oDBUser);
 
-        //   // Row.changeColor(newUser)
-        //   // Row.search(newUser)
-        // }
+          // Call Methods
+
+          oGuiHizb.addToTable(oGuiHizb);
+          // oGuiUser.onClickBtn(oDBUser);
+
+          // Row.changeColor(newUser)
+          // Row.search(newUser)
+        }
       });
     });
   });
@@ -114,8 +112,8 @@ userTab.addEventListener("click", function () {
   // alert("user");
 
   DBUserCl.initializeDB(app, "/user/");
-  let headRef = DBUserCl.headRef;
-  onValue(headRef, function (snapshot) {
+
+  onValue(DBUserCl.headRef, function (snapshot) {
     let aItems = Object.values(snapshot.val()); // Change JSON format to Array format
 
     GuiUserCl.clearTbodyEl();
@@ -140,8 +138,7 @@ userTab.addEventListener("click", function () {
 // ---------------------------------------------------------------------------------
 bookTab.addEventListener("click", function () {
   DBKhatmaCl.initializeDB(app, "/khatmaHead/");
-  let headRef = DBKhatmaCl.headRef;
-  onValue(headRef, function (snapshot) {
+  onValue(DBKhatmaCl.headRef, function (snapshot) {
     let aKhatmaHead = Object.values(snapshot.val()); // Change JSON format to Array format
     DBKhatmaCl.setArray(aKhatmaHead);
 
