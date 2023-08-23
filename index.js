@@ -14,6 +14,7 @@ import { DBManagerCl } from "./Classes/DBManagerCl.js";
 import { GUIManagerCl } from "./Classes/GUIManagerCl.js";
 import { DBUserCl, GuiUserCl } from "./Classes/User1Cl.js";
 import { DBKhatmaCl, GuiKhatmaCl } from "./Classes/KhatmaCl.js";
+import { DBHizbCl, GuiHizbCl } from "./Classes/HizbCl.js";
 
 const appSettings = {
   databaseURL:
@@ -58,7 +59,52 @@ const app = initializeApp(appSettings);
 // Home
 // ---------------------------------------------------------------------------------
 homeTab.addEventListener("click", function () {
-  alert("homeee");
+  DBUserCl.initializeDB(app, "/user/");
+  let userHeadRef = DBUserCl.headRef;
+
+  DBKhatmaCl.initializeDB(app, "/khatmaHead/");
+  let khatmaHeadRef = DBKhatmaCl.headRef;
+
+  DBHizbCl.initializeDB(app, "/hizb/");
+  let hizbHeadRef = DBHizbCl.headRef;
+
+  onValue(userHeadRef, function (snapshot) {
+    let userSnapshot = snapshot;
+    onValue(khatmaHeadRef, function (snapshot) {
+      let khatmaSnapshot = snapshot;
+      onValue(hizbHeadRef, function (snapshot) {
+        let hizbSnapshot = snapshot;
+        let aUser = Object.values(userSnapshot.val());
+        let aKhatma = Object.values(khatmaSnapshot.val()); // Change JSON format to Array format
+        let aHizb = Object.values(hizbSnapshot.val());
+
+        console.log(aUser);
+        console.log(aKhatma);
+        console.log(aHizb);
+
+        aKhatma.forEach((obj) => {
+          if (obj.valid === "X") {
+            var sCurrentKhatmaNo = obj.no;
+          }
+        });
+
+        GuiHizbCl.clearTbodyEl();
+        // for (let i = 0; i < aItems.length; i++) {
+        //   // Initiate Objects
+        //   var oDBHizb = new DBHizbCl(aItems[i]);
+        //   var oGuiHizb = new GuiHizbCl(aItems[i], oDBHizb);
+
+        //   // Call Methods
+
+        //   oGuiHizb.addToTable(oGuiHizb);
+        //   // oGuiUser.onClickBtn(oDBUser);
+
+        //   // Row.changeColor(newUser)
+        //   // Row.search(newUser)
+        // }
+      });
+    });
+  });
 });
 
 // ---------------------------------------------------------------------------------
