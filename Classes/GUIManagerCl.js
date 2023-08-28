@@ -74,6 +74,13 @@ export class GUIManagerCl {
   }
 
   // --- Filter users based on the search --------------------------------------------------------
+
+  ///////// we can use filter as in following example from ES6 in Sololearn
+  // let res = [4, 5, 1, 8, 2, 0].filter(function (x) {
+  //   return x > 3;
+  // });
+
+  //////////
   filter() {
     var filter, txtValue;
     filter = RowCl.searchEl.value.toUpperCase();

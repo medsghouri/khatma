@@ -18,19 +18,18 @@ export class DBHizbCl extends DBManagerCl {
     super(item, sPath);
   }
 
-  // --- Udate Khatma Status in DB ----------------------------------------------
-  //   updateInDB(item) {
-  //     // Popup to confirm
-  //     let text = " تأكيد ";
-  //     if (confirm(text) == true) {
-  //       text = "You pressed OK!";
-
-  //       // Update in DB
-  //       update(this.itemRef, { valid: "X" });
-  //     } else {
-  //       text = "You canceled!";
-  //     }
-  //   }
+  //   --- Udate Khatma Status in DB ----------------------------------------------
+  updateInDB(item) {
+    //     // Popup to confirm
+    //     let text = " تأكيد ";
+    //     if (confirm(text) == true) {
+    //       text = "You pressed OK!";
+    //       // Update in DB
+    //       update(this.itemRef, { valid: "X" });
+    //     } else {
+    //       text = "You canceled!";
+    //     }
+  }
 }
 //-------------------------------------------------------------------------------
 // GUI Class
@@ -49,7 +48,12 @@ export class GuiHizbCl extends GUIManagerCl {
   addToTable() {
     // add
     super.addToTable(this.item);
-    console.log(this.oDBUser)
+    console.log(this.oDBUser);
+
+    // Maybe consider writing it this way in Example below ???
+    // const obj1 = { foo: 'bar', x: 42 };
+    //const obj2 = { foo: 'baz', y: 5 };
+    // const mergedObj = { ...obj1, ...obj2 }; // { foo: "baz", x: 42, y: 5 }
     this.tdRowEl.innerHTML =
       ` الحزب ` + this.item.hizb_id + ` - ` + this.oDBUser.item.name;
   }
