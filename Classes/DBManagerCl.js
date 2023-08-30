@@ -12,14 +12,17 @@ import {
 // ---------------------------------------------------------------------------------------------
 
 export class DBManagerCl {
-  static aObjects = [];
+  // static aObjects = [];
   static initializeDB(app, headPathDB) {
     this.database = getDatabase(app);
     this.headPathDB = headPathDB; //"/khatma2/432/khatma/"; // later: "/khatamat/432/khatma/"
     this.headRef = ref(this.database, this.headPathDB);
+    this.aObjects = [];
   }
-  static setArray(aItems) {
-    this.aItems = aItems;
+
+  static initializeSSArray(snapshot) {
+    this.snapshot = snapshot.val();
+    this.aSnapshot = Object.values(snapshot.val()); // Change JSON format to Array format
   }
 
   constructor(item, sPath) {

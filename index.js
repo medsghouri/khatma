@@ -18,7 +18,8 @@ import { DBHizbCl, GuiHizbCl } from "./Classes/HizbCl.js";
 
 const appSettings = {
   databaseURL:
-    "https://read-the-quran-default-rtdb.europe-west1.firebasedatabase.app/",
+    "https://mshelloworld-45ae3-default-rtdb.europe-west1.firebasedatabase.app/",
+  // "https://read-the-quran-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -62,44 +63,37 @@ homeTab.addEventListener("click", function () {
   DBUserCl.initializeDB(app, "/user/");
   //-----------------------------------------
   onValue(DBUserCl.headRef, function (snapshot) {
-    let userSnapshot = snapshot;
+    DBUserCl.initializeSSArray(snapshot);
     //-----------------------------------------
-    DBKhatmaCl.initializeDB(app, "/khatmaHead/");
+    DBKhatmaCl.initializeDB(app, "/khatma/");
     onValue(DBKhatmaCl.headRef, function (snapshot) {
-      let khatmaSnapshot = snapshot;
-      let aKhatma = Object.values(khatmaSnapshot.val()); // Change JSON format to Array format
-      let sCurrentKhatmaNo;
-      aKhatma.forEach((obj) => {
-        if (obj.valid === "X") {
-          sCurrentKhatmaNo = obj.no;
-        }
-      });
-      //-----------------------------------------
+      DBKhatmaCl.initializeSSArray(snapshot);
 
-      let sPath = "/hizb/" + sCurrentKhatmaNo;
+      let sPath = "/hizb/" + DBKhatmaCl.getCurrentKhatmaNo();
+
       DBHizbCl.initializeDB(app, sPath);
       onValue(DBHizbCl.headRef, function (snapshot) {
-        let hizbSnapshot = snapshot;
-        let aUser = Object.values(userSnapshot.val());
-        let aHizb = Object.values(hizbSnapshot.val());
+        DBHizbCl.initializeSSArray(snapshot);
+        // let aUser = Object.values(userSnapshot.val());
+        // let aHizb = Object.values(hizbSnapshot.val());
 
         GuiHizbCl.clearTbodyEl();
-        for (let i = 0; i < aUser.length; i++) {
-          // Initiate Objects
 
-          var oDBHizb = new DBHizbCl(aHizb[i]);
-
-          var oDBUser = new DBUserCl(aUser[aHizb[i].user_id]);
-          var oGuiHizb = new GuiHizbCl(aHizb[i], oDBHizb, oDBUser);
+        DBHizbCl.aSnapshot.map((hizb, i) => {
+          var oDBHizb = new DBHizbCl(hizb);
+          var mCurrentUser = DBUserCl.aSnapshot.find((item) => {
+            return item.user_id === hizb.user_id;
+          });
+          var oDBUser = new DBUserCl(mCurrentUser);
+          var oGuiHizb = new GuiHizbCl(hizb, oDBHizb, oDBUser);
 
           // Call Methods
-
           oGuiHizb.addToTable(oGuiHizb);
           // oGuiUser.onClickBtn(oDBUser);
 
           // Row.changeColor(newUser)
           // Row.search(newUser)
-        }
+        });
       });
     });
   });
@@ -114,13 +108,13 @@ userTab.addEventListener("click", function () {
   DBUserCl.initializeDB(app, "/user/");
 
   onValue(DBUserCl.headRef, function (snapshot) {
-    let aItems = Object.values(snapshot.val()); // Change JSON format to Array format
-
+    DBUserCl.initializeSSArray(snapshot);
     GuiUserCl.clearTbodyEl();
-    for (let i = 0; i < aItems.length; i++) {
+
+    DBUserCl.aSnapshot.map((user) => {
       // Initiate Objects
-      var oDBUser = new DBUserCl(aItems[i]);
-      var oGuiUser = new GuiUserCl(aItems[i], oDBUser);
+      var oDBUser = new DBUserCl(user);
+      var oGuiUser = new GuiUserCl(user, oDBUser);
 
       // Call Methods
 
@@ -129,7 +123,7 @@ userTab.addEventListener("click", function () {
 
       // Row.changeColor(newUser)
       // Row.search(newUser)
-    }
+    });
   });
 });
 
@@ -137,27 +131,33 @@ userTab.addEventListener("click", function () {
 // Book
 // ---------------------------------------------------------------------------------
 bookTab.addEventListener("click", function () {
-  DBKhatmaCl.initializeDB(app, "/khatmaHead/");
+  DBKhatmaCl.initializeDB(app, "/khatma/");
   onValue(DBKhatmaCl.headRef, function (snapshot) {
-    let aKhatmaHead = Object.values(snapshot.val()); // Change JSON format to Array format
-    DBKhatmaCl.setArray(aKhatmaHead);
+    DBKhatmaCl.initializeSSArray(snapshot);
+    let sPath = "/hizb/"; //+ DBKhatmaCl.getCurrentKhatmaNo();
 
-    GuiKhatmaCl.clearTbodyEl();
-    for (let i = 0; i < aKhatmaHead.length; i++) {
-      // Initiate Objects
-      var oDBKhatma = new DBKhatmaCl(aKhatmaHead[i]);
-      var oGuiKhatma = new GuiKhatmaCl(aKhatmaHead[i], oDBKhatma);
+    DBHizbCl.initializeDB(app, sPath);
+    onValue(DBHizbCl.headRef, function (snapshot) {
+      DBHizbCl.initializeSSArray(snapshot);
 
-      // Call Methods
+      DBKhatmaCl.addHizbSnapshotArray(DBHizbCl.snapshot, DBHizbCl.aSnapshot);
 
-      oGuiKhatma.addToTable();
-      // oGuiUser.onClickBtn(oDBUser);
+      GuiKhatmaCl.clearTbodyEl();
 
-      // Row.changeColor(newUser)
-      // Row.search(newUser)
-    }
+      DBKhatmaCl.aSnapshot.map((khatma) => {
+        // Initiate Objects
+        var oDBKhatma = new DBKhatmaCl(khatma);
+        var oGuiKhatma = new GuiKhatmaCl(khatma, oDBKhatma);
 
-    GuiKhatmaCl.addKhatmaBtn();
+        // Call Methods
+        oGuiKhatma.addToTable();
+        // oGuiUser.onClickBtn(oDBUser);
+        // Row.changeColor(newUser)
+        // Row.search(newUser)
+      });
+
+      GuiKhatmaCl.addKhatmaBtn();
+    });
   });
 });
 
