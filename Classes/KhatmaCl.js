@@ -84,9 +84,7 @@ export class DBKhatmaCl extends DBManagerCl {
     //   this.database,
     //   "khatma/" + oNewDBKhatma.item.no, //oNewDBKhatma.item.no // <to-do> later replace "khatmaHead/" with  this.headPathDB</to-do>
 
-    const newItemRef = ref(
-      this.database,
-      "khatma/" + oNewDBKhatma.item.no, //o
+    const newItemRef =  + oNewDBKhatma.item.no, //o
     );
 
     // New item data to add
