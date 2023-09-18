@@ -5,6 +5,7 @@ import {
   onValue,
   set,
   get,
+  remove,
   child,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
@@ -65,33 +66,34 @@ export class DBKhatmaCl extends DBManagerCl {
   }
 
   static createNewKhatma() {
-    // // parse date and add one week
-    // const lastDateFrom = new Date(this.lastKhatma.dateFrom);
-    // const lastDateTo = new Date(this.lastKhatma.dateTo);
-
-    // Creating a new object based of the last Object
+    // Creating a new object based on the last Object
     const oNewDBKhatma = Object.create(DBKhatmaCl.getLastKhatmaObj());
-    console.log(oNewDBKhatma);
     // change attributes
     oNewDBKhatma.incrementAttributes();
-  
-    console.log(this.oNewDBKhatma.item);
-    // console.log(this.oNewDBKhatma.formatDate(this.oNewDBKhatma.item.dateTo));
-    // console.log(this.oNewDBKhatma.itemPath);
-    // const oItem = this.oNewDBKhatma;
 
-    // update(this.oNewDBKhatma.itemRef, { no: oItem.no });
-    // Specify the location where you want to add the new item
-    // const newItemRef = this.database.ref("khatmaHead").child("436"); // Use the new item's key
-    const newItemRef = ref(
-      this.database,
-      "khatma/" + this.oNewDBKhatma.item.no // <to-do> later replace "khatmaHead/" with  this.headPathDB</to-do>
-    );
+    this.addNewKhatmaToDB(oNewDBKhatma);
+  }
+
+  removeKhatma() {
+    alert(DBKhatmaCl.headRef);
+    remove(this.itemRef);
+  }
+
+  static addNewKhatmaToDB(oNewDBKhatma) {
+    // const newItemRef = ref(
+    //   this.database,
+    //   "khatma/" + oNewDBKhatma.item.no, //oNewDBKhatma.item.no // <to-do> later replace "khatmaHead/" with  this.headPathDB</to-do>
+  
+      const newItemRef = ref(
+        this.database,
+        "khatma/" + oNewDBKhatma.item.no, //o
+      
+      );
 
     // New item data to add
-    const newItemData = this.oNewDBKhatma.item;
+    const newItemData = oNewDBKhatma.item;
 
-    // Add the new item data using set()
+    // Add the new item data
     update(newItemRef, newItemData).then(() => {
       console.log("New item added successfully.");
     });
@@ -104,10 +106,11 @@ export class DBKhatmaCl extends DBManagerCl {
 
     console.log(this.item);
   }
+
   addOneWeekToDate(dateString) {
     // Convert the string to a Date object
     var dateObject = new Date(
-      dateString.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1")
+      dateString.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1"),
     );
 
     // Add 7 days to the date
@@ -142,11 +145,7 @@ export class DBKhatmaCl extends DBManagerCl {
 export class GuiKhatmaCl extends GUIManagerCl {
   constructor(item, oDBKhatma) {
     super(item);
-
     this.oDBKhatma = oDBKhatma;
-
-    // this.iLeftEl = document.createElement('i')
-    // this.divRightEl = document.createElement('div')
   }
 
   addToTable() {
@@ -154,12 +153,19 @@ export class GuiKhatmaCl extends GUIManagerCl {
     super.addToTable(this.item);
     this.tdRowEl.innerHTML = this.item.no;
 
-    // hide
-    this.tBtnEl.hidden = "true";
+    //
+    // if last item ...
+    console.log(DBKhatmaCl.getLastKhatma());
+    if (DBKhatmaCl.getLastKhatmaObj().item.no != this.item.no)
+      this.tBtnEl.hidden = "true";
   }
 
-  onClickRow() {
+  onClickDRow() {
     this.oDBKhatma.updateInDB(this.item);
+  }
+
+  onClickBtn() {
+    this.oDBKhatma.removeKhatma();
   }
 
   // --- Nicht vererbte Methoden
@@ -170,7 +176,7 @@ export class GuiKhatmaCl extends GUIManagerCl {
     // Click evetns
     GuiKhatmaCl.addKhatmaBtnEl.addEventListener(
       "click",
-      GuiKhatmaCl.onAddKhatma.bind(this)
+      GuiKhatmaCl.onAddKhatma.bind(this),
     );
   }
 
