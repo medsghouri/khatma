@@ -83,12 +83,11 @@ export class DBKhatmaCl extends DBManagerCl {
     // const newItemRef = ref(
     //   this.database,
     //   "khatma/" + oNewDBKhatma.item.no, //oNewDBKhatma.item.no // <to-do> later replace "khatmaHead/" with  this.headPathDB</to-do>
-  
-      const newItemRef = ref(
-        this.database,
-        "khatma/" + oNewDBKhatma.item.no, //o
-      
-      );
+
+    const newItemRef = ref(
+      this.database,
+      "khatma/" + oNewDBKhatma.item.no, //o
+    );
 
     // New item data to add
     const newItemData = oNewDBKhatma.item;
@@ -185,3 +184,4 @@ export class GuiKhatmaCl extends GUIManagerCl {
     DBKhatmaCl.addKhatmaInDB();
   }
 }
+
