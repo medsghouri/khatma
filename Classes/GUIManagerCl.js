@@ -21,7 +21,7 @@ export class GUIManagerCl {
 
     // Click evetns
     this.tBtnEl.addEventListener("click", this.onClickBtn.bind(this));
-    this.tRowEl.addEventListener("click", this.onClickRow.bind(this));
+    this.tdRowEl.addEventListener("click", this.onClickDRow.bind(this));
     // this.iLeftEl = document.createElement('i')
     // this.divRightEl = document.createElement('div')
   }
@@ -35,7 +35,7 @@ export class GUIManagerCl {
   }
 
   onClickBtn() {}
-  onClickRow() {}
+  onClickDRow() {}
 
   changeColor(user) {
     // this.iLeftEl.style.cssFloat = "left"
