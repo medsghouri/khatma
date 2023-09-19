@@ -75,16 +75,13 @@ export class DBKhatmaCl extends DBManagerCl {
   }
 
   removeKhatma() {
-    alert(DBKhatmaCl.headRef);
     remove(this.itemRef);
   }
 
   static addNewKhatmaToDB(oNewDBKhatma) {
-    // const newItemRef = ref(
-    //   this.database,
-    //   "khatma/" + oNewDBKhatma.item.no, //oNewDBKhatma.item.no // <to-do> later replace "khatmaHead/" with  this.headPathDB</to-do>
-
-    const newItemRef =  + oNewDBKhatma.item.no, //o
+    const newItemRef = ref(
+      this.database,
+      "khatma/" + oNewDBKhatma.item.no, //oNewDBKhatma.item.no // <to-do> later replace "khatmaHead/" with  this.headPathDB</to-do>
     );
 
     // New item data to add
@@ -100,7 +97,7 @@ export class DBKhatmaCl extends DBManagerCl {
     this.item.no++;
     this.item.dateFrom = this.addOneWeekToDate(this.item.dateFrom);
     this.item.dateTo = this.addOneWeekToDate(this.item.dateTo);
-
+    this.item.valid = "";
     console.log(this.item);
   }
 
@@ -182,4 +179,3 @@ export class GuiKhatmaCl extends GUIManagerCl {
     DBKhatmaCl.addKhatmaInDB();
   }
 }
-
